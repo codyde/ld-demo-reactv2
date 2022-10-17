@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b0168117.css",
+    "main.js": "/static/js/main.b08cc821.js",
+    "static/js/787.fed12b1f.chunk.js": "/static/js/787.fed12b1f.chunk.js",
+    "static/media/toggle_thumbsup.png": "/static/media/toggle_thumbsup.1d752285128b052f17fb.png",
+    "static/media/Audimat3000-Regulier.otf": "/static/media/Audimat3000-Regulier.b16d6b1fdb87e9e980a6.otf",
+    "static/media/ld-white-wide.png": "/static/media/ld-white-wide.c7ccd94b41333f877744.png",
+    "index.html": "/index.html",
+    "main.b0168117.css.map": "/static/css/main.b0168117.css.map",
+    "main.b08cc821.js.map": "/static/js/main.b08cc821.js.map",
+    "787.fed12b1f.chunk.js.map": "/static/js/787.fed12b1f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b0168117.css",
+    "static/js/main.b08cc821.js"
+  ]
+}
