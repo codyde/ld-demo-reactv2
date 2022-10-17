@@ -79,7 +79,7 @@ export default function Login() {
         <form>
           <div className="flex overflow-hidden px-2 py-1 justify-between">
             <input
-              className="text-2xl bg-ldinput border-lddblue border-0 border-b-4  text-white flex-grow px-2 box-content h-8 w-8 xl:h-16 xl:w-16"
+              className="text-base xl:text-2xl bg-ldinput border-lddblue border-0 border-b-4  text-white flex-grow px-2 box-content h-8 w-8 xl:h-16 xl:w-16"
               type="input"
               id="username"
               placeholder="Username"
@@ -92,7 +92,7 @@ export default function Login() {
             <button
               type="submit"
               id="submission"
-              className="bg-lddblue text-white text-2xl px-2 py-1 xl:px-4 x:py-2 xl:w-1/2 "
+              className="bg-lddblue mx-auto text-white text-base xl:text-2xl px-2 py-1 xl:px-4 xl:py-2 xl:w-1/2 "
               onClick={submitUser.bind(userState)}
             >
               Submit
@@ -101,7 +101,7 @@ export default function Login() {
             <button
               type="submit"
               id="clear"
-              className="bg-ldred text-white text-2xl px-4 py-2 w-1/2 "
+              className="bg-ldred mx-auto text-white text-base xl:text-2xl px-2 py-1 xl:px-4 xl:py-2 xl:w-1/2 "
               onClick={clearUser.bind()}
             >
               Clear
