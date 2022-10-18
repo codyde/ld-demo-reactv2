@@ -14,17 +14,17 @@ provider "launchdarkly" {
   access_token = var.LAUNCHDARKLY_ACCESS_TOKEN
 }
 
-resource "launchdarkly_project" "hashiconf" {
-  key  = "ld-demo-hashiconf"
-  name = "ld-demo-hashiconf"
+resource "launchdarkly_project" "reactv2" {
+  key  = "ld-demo-reactv2"
+  name = "ld-demo-reactv2"
 
   tags = [
     "terraform",
   ]
 
   environments {
-        key   = "hashiconf1"
-        name  = "hashiconf-1"
+        key   = "reactv21"
+        name  = "reactv2-1"
         color = "7B42BC"
         tags  = ["terraform"]
   }
@@ -35,10 +35,10 @@ resource "launchdarkly_project" "hashiconf" {
 }
 
 resource "launchdarkly_feature_flag" "qrcode" {
-  project_key = launchdarkly_project.hashiconf.key
+  project_key = launchdarkly_project.reactv2.key
   key         = "qrcode"
   name        = "0 - QR Code"
-  description = "This flag enables the view of the QR Code on our application canvas for mobile device viewing"
+  description = "Scan the QR code in the application in order to access the demo locally!"
 
   variation_type = "boolean"
   variations {
@@ -62,22 +62,106 @@ resource "launchdarkly_feature_flag" "qrcode" {
   ]
 }
 
-resource "launchdarkly_feature_flag" "logoversion" {
-  project_key = launchdarkly_project.hashiconf.key
-  key         = "logoversion"
-  name        = "4 - Logo Version"
-  description = "This flag controls which logo is visible within the application"
+resource "launchdarkly_feature_flag" "login" {
+  project_key = launchdarkly_project.reactv2.key
+  key         = "login"
+  name        = "1 - APP UI (Release a New UI)"
+  description = "Features can be text on screen, new web components, API changes, or new infrastructure entirely"
 
   variation_type = "boolean"
   variations {
     value       = "true"
-    name        = "Show Toggle Logo"
-    description = "Toggle makes their grand appearance!"
+    name        = "Show New Header Design"
+    description = "Show the updated LaunchDarkly header"
   }
   variations {
     value       = "false"
-    name        = "Default LaunchDarkly Logo"
-    description = "Shows the default LaunchDarkly Osmo logo"
+    name        = "Show Old Header Design"
+    description = "Displays header showing common app delivery "
+  }
+  
+  defaults {
+    on_variation = 0
+    off_variation = 1
+  }
+
+  tags = [
+    "terraform-managed",   
+  ]
+}
+
+resource "launchdarkly_feature_flag" "bgstyle" {
+  project_key = launchdarkly_project.reactv2.key
+  key         = "bgstyle"
+  name        = "2 - Background Styling (Targeting)"
+  description = "We can control how features are released based on various targeting properties, like the coloring of a background image!"
+
+  variation_type = "boolean"
+  variations {
+    value       = "true"
+    name        = "Login enabled"
+    description = "Login box presented"
+  }
+  variations {
+    value       = "false"
+    name        = "Login Disabled"
+    description = "Not able to login "
+  }
+  
+  defaults {
+    on_variation = 0
+    off_variation = 1
+  }
+
+  tags = [
+    "terraform-managed",   
+  ]
+}
+
+resource "launchdarkly_feature_flag" "apidebug" {
+  project_key = launchdarkly_project.reactv2.key
+  key         = "apidebug"
+  name        = "3 - API Menu (Hide a debug menu)"
+  description = "Features can be hidden behind debugging feature flags"
+
+  variation_type = "boolean"
+  variations {
+    value       = "true"
+    name        = "Enable Debug Menu"
+    description = "Displays the hidden admin debugging menu for DB"
+  }
+  variations {
+    value       = "false"
+    name        = "No Debug Menu"
+    description = "Disable the debug menu flag"
+  }
+  
+  defaults {
+    on_variation = 0
+    off_variation = 1
+  }
+
+  tags = [
+    "terraform-managed",   
+  ]
+}
+
+resource "launchdarkly_feature_flag" "dbinfo" {
+  project_key = launchdarkly_project.reactv2.key
+  key         = "dbinfo"
+  name        = "4 - Switch Database (Migration)"
+  description = "Use feature flags to **migrate** to a new infrastructure service (like a **database**)"
+
+  variation_type = "json"
+  variations {
+    value       = "{'dbhost': 'dynanmo','mode': 'cloud'}"
+    name        = "Cloud"
+    description = "Enable the Cloud hosted database"
+  }
+  variations {
+    value       = "{'dbhost': 'db','mode': 'local'}"
+    name        = "LocalDB"
+    description = "Use local database"
   }
   
   defaults {
@@ -91,7 +175,7 @@ resource "launchdarkly_feature_flag" "logoversion" {
 }
 
 resource "launchdarkly_feature_flag" "cardshow" {
-  project_key = launchdarkly_project.hashiconf.key
+  project_key = launchdarkly_project.reactv2.key
   key         = "cardshow"
   name        = "5 - Release Cards"
   description = "This flag controls the visibility of the release cards on the bottom of the UI "
@@ -119,7 +203,7 @@ resource "launchdarkly_feature_flag" "cardshow" {
 }
 
 resource "launchdarkly_feature_flag" "upperimage" {
-  project_key = launchdarkly_project.hashiconf.key
+  project_key = launchdarkly_project.reactv2.key
   key         = "upperimage"
   name        = "3 - Upper Image"
   description = "Show the upper immage on page"
@@ -146,68 +230,12 @@ resource "launchdarkly_feature_flag" "upperimage" {
   ]
 }
 
-resource "launchdarkly_feature_flag" "login" {
-  project_key = launchdarkly_project.hashiconf.key
-  key         = "login"
-  name        = "2 - Login UI"
-  description = "Show the login box for user targeting"
-
-  variation_type = "boolean"
-  variations {
-    value       = "true"
-    name        = "Login enabled"
-    description = "Login box presented"
-  }
-  variations {
-    value       = "false"
-    name        = "Login Disabled"
-    description = "Not able to login "
-  }
-  
-  defaults {
-    on_variation = 0
-    off_variation = 1
-  }
-
-  tags = [
-    "terraform-managed",   
-  ]
-}
-
-resource "launchdarkly_feature_flag" "prodHeader" {
-  project_key = launchdarkly_project.hashiconf.key
-  key         = "prodHeader"
-  name        = "1 - Production Header"
-  description = "Enables the production header view in the UI"
-
-  variation_type = "boolean"
-  variations {
-    value       = "true"
-    name        = "Show New Header Design"
-    description = "Show the updated LaunchDarkly header"
-  }
-  variations {
-    value       = "false"
-    name        = "Show Old Header Design"
-    description = "Displays header showing common app delivery "
-  }
-  
-  defaults {
-    on_variation = 0
-    off_variation = 1
-  }
-
-  tags = [
-    "terraform-managed",   
-  ]
-}
-
-output "LaunchDarkly_API_Key" {
-  value = launchdarkly_project.hashiconf.environments[0].api_key
+output "LaunchDarkly_Server_Key" {
+  value = launchdarkly_project.reactv2.environments[0].api_key
   sensitive = true
 }
 
 output "LaunchDarkly_Client_Side_Key" {
-  value = launchdarkly_project.hashiconf.environments[0].client_side_id
+  value = launchdarkly_project.reactv2.environments[0].client_side_id
   sensitive = true
 }
