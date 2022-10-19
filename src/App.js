@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import QRCode from "./components/qrCode";
 import "./App.css";
 import { useFlags } from "launchdarkly-react-client-sdk";
-import Header from "./components/header";
 import Login from "./components/login";
 import ld from "./ld-white-wide.png";
 import Connection from "./components/connection";
@@ -31,23 +30,32 @@ function App() {
         </header>
       ) : (
         <header className="App-header grid row-start-2 xl:row-start-2 xl:col-start-2 xl:col-span-2">
-          <div className="body px-8 py-4 mb-5 w-3/5">
-            <div className="text-2xl xl:text-7xl font-audimat text-transparent bg-clip-text bg-gradient-to-br from-ldgdcol1 to-ldgdcol2">
-              {/* <img src={ld} className="mx-auto max-h-30" alt="logo" /> */}
+          <div className="body px-8 py-4 mb-5 w-4/5">
+            <div className="text-2xl md:text-5xl xl:text-7xl font-audimat text-transparent bg-clip-text bg-gradient-to-br from-ldgdcol1 to-ldgdcol2">
               Innovate Faster,
             </div>
-            <div className="text-2xl xl:text-7xl">
+            <div className="text-2xl md:text-5xl xl:text-7xl">
               <p>
                 <span className="font-audimat text-transparent bg-clip-text bg-gradient-to-br from-ldgdcol1 to-ldgdcol2">
                   Deploy Fearlessly.
                 </span>
               </p>
             </div>
-            {/* <p className="text-m xl:text-8xl font-bold">LaunchDarkly</p>
-          <p className="text-m xl:text-4xl">Welcomes you to <span className="text-ldyellow">HashiConf 2022</span>, Los Angeles!</p>         */}
           </div>
         </header>
       )}
+        {/* {login ? null
+          :
+          (
+            <div className="App-header m-auto w-full xl:w-4/5 grid col-span-1 row-start-3 xl:col-start-1 xl:col-span-4">
+            <p>
+            <span className="font-sohne xl:text-7xl text-transparent bg-clip-text bg-gradient-to-br from-ldgdcol1 to-ldgdcol2">
+              Welcome to QCon SF 2022
+            </span>
+          </p>
+        </div>
+          )
+        } */}
       {qrcode ? (
         <div className="body grid mx-auto row-start-4 xl:col-span-1 xl:col-start-4 xl:row-start-1 bg-black-4 place-content-center">
           <QRCode />

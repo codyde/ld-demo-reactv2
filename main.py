@@ -22,8 +22,8 @@ app.config.from_object(ApplicationConfig)
 server_session = Session(app)
 
 # LD_KEY = os.environ.get('LD_SERVER_KEY')
-LD_KEY = 'sdk-946ca72c-3389-4324-bdc6-b275d88b1d93'
-AWS_ACCESS_KEY = os.getenv('AWS_ACCESS_KEY')
+LD_KEY = 'sdk-9b3486f8-ae4d-4c73-89cc-0ae39e85bb81'
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_KEY = os.getenv('AWS_SECRET_KEY')
 AWS_DEFAULT_REGION = os.getenv('AWS_DEFAULT_REGION')
 
@@ -101,6 +101,7 @@ def get_api():
 def thedata():
     ldclient.set_config(Config(LD_KEY))
     try: 
+        print(session)
         user = {
             "key": session['key']
         }
@@ -143,23 +144,23 @@ def thedata():
     else:
         dynamodb = boto3.resource('dynamodb')
         table = dynamodb.Table('LD_Demo_Dynamo')
-        data = table.get_item(Key={'teamid': '1'})
+        data = table.get_item(Key={'id': 1})
         realData = [(
             {
                 "id":1,
-                "title":data['Item']['title1'],
-                "text":data['Item']['text1']
-            },
-            {
-                "id":1,
-                "title":data['Item']['title2'],
-                "text":data['Item']['text2']
-            },
-            {
-                "id":1,
-                "title":data['Item']['title3'],
-                "text":data['Item']['text3']
+                "title":data['Item']['name'],
+                "text":data['Item']['region']
             }
+            # {
+            #     "id":1,
+            #     "title":data['Item']['title2'],
+            #     "text":data['Item']['text2']
+            # },
+            # {
+            #     "id":1,
+            #     "title":data['Item']['title3'],
+            #     "text":data['Item']['text3']
+            # }
         )]
         return jsonify(realData)
 

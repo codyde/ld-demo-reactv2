@@ -7,10 +7,8 @@ import ls from 'local-storage';
 export default function Connection() {
   const { dbinfo } = useFlags();
   const [userkey, setuserkey] = useState("anonymous")
-  const [loc1, setloc1] = useState("INACTIVE");
-  const [api1, setapi1] = useState("bg-ldred");
+  const [api1, setapi1] = useState("text-ldred");
   const [api1loc, setapi1loc] = useState("UNKNOWN");
-  const [debugid, setdebugid] = useState("UNKNOWN")
 
 
   async function setID(){
@@ -21,28 +19,18 @@ export default function Connection() {
   
   async function queryAPI() {
     let id = await setID()
+    console.log(id)
     const ENDPOINT2 =
     window.location.protocol + "//" + window.location.host + "/health";
     const response = await fetch(ENDPOINT2);
     const data = await response.json();
-    setloc1(data.mode);
     console.log(data)
-    if (response.status != 200) {
+    if (response.status !== 200) {
       setapi1("text-ldred");
     } else {
       setapi1("text-ldyellow");
       setapi1loc(data.location);
     }
-  }
-
-  async function queryTeamDebug() {
-    let id = await setID()
-    const DEBUGENDPOINT =
-    window.location.protocol + "//" + window.location.host + "/teamdebug";
-    const response = await fetch(DEBUGENDPOINT);
-    const data = await response.json();
-    console.log("the data is +" + data)
-    setdebugid(data.debugcode);
   }
 
   useEffect(() => {
@@ -54,28 +42,17 @@ export default function Connection() {
     console.log("update to key detected")
   }, [userkey])
 
-  useEffect(() => {
-    queryTeamDebug()
-    // console.log("Team Debug ID is ")
-  }, [])
-
   return (
     <div className="flex mx-auto w-full h-3/5 space-x-4">
       <div
         className="grid grid-cols-1 xl:grid-cols-2 mx-auto justify-center items-center bg-ldinput shadow-2xl py-4 px-4 xl:py-8 xl:px-8 w-full"
       >
         <div>
-          <h1 className="font-audimat font-bold text-ldgraytext text-base lg:text-4xl">
+          <h1 className="font-sohne text-ldgraytext text-base px-2 lg:text-3xl">
             Connected to the <span className={`${api1}`}>{api1loc.toUpperCase()}</span> database 
           </h1>
-          {/* <p className="text-center text-white">Connected to the{" "}
-            <span className="text-ldred">{api1loc.toUpperCase()}</span> Database</p>
-          <div className={`overflow-hidden h-8 flex px-8 pb-4 ${api1}`}>
-            <p className="mx-auto text-black text-xl">{loc1.toUpperCase()}</p>
-          </div> */}
-          
         </div>
-        <div className="grid mx-auto py-4">
+        <div className="grid py-4">
             <Modal dbDetails={dbinfo} />
           </div>
       </div>

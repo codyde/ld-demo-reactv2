@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-// import SyntaxHighlighter from 'react-syntax-highlighter';
-// import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import ls from 'local-storage';
 
 
@@ -34,6 +34,7 @@ export default function Modal(code) {
 
     async function queryDB() {
         let id = await setID()
+        console.log("In the modal view ID is "+id)
         const response = await fetch( window.location.protocol +
           "//" +
           window.location.host +
@@ -60,7 +61,7 @@ export default function Modal(code) {
   return (
     <>
       <button
-        className="bg-lddblue text-white font-bold text-base xl:text-xl uppercase px-3 py-1 xl:px-6 xl:py-3 ease-linear transition-all duration-150"
+        className="bg-lddblue text-white font-sohne text-base xl:text-xl uppercase px-3 py-1 xl:px-6 xl:py-3 ease-linear transition-all duration-150"
         type="button"
         onClick={() => setShowModal(true)}
       >
@@ -90,9 +91,9 @@ export default function Modal(code) {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  {/* <SyntaxHighlighter language="json" style={a11yDark}>
+                  <SyntaxHighlighter language="json" style={a11yDark} wrapLongLines customStyle={{textAlign: 'left'}}>
                       {query}
-                  </SyntaxHighlighter> */}
+                  </SyntaxHighlighter>
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
