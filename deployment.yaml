@@ -1,45 +1,51 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: hashiconf-1
-  namespace: hashiconf-1
+  name: reactv2-1
+  namespace: reactv2-1
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hashiconf-1
-  namespace: hashiconf-1
+  name: reactv2-1
+  namespace: reactv2-1
   labels:
-    app: hashiconf-1
+    app: reactv2-1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hashiconf-1
+      app: reactv2-1
   template:
     metadata:
       labels:
-        app: hashiconf-1
+        app: reactv2-1
     spec:
+      serviceAccountName: demo-ldns
       containers:
-        - name: hashiconf-1
-          image: codydearkland/ld-demo-hashiconf:1
+        - name: reactv2-1
+          image: codydearkland/ld-demo-reactv2:latest
           imagePullPolicy: Always
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: "us-east-2"
+            - name: ENABLE_IRP
+              value: "true"
           ports:
             - name: web
-              containerPort: 3000
+              containerPort: 5000
               protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: hashiconf-1
-  name: hashiconf-lb
+  namespace: reactv2-1
+  name: reactv2-lb
 spec:
   ports:
   - port: 80
     protocol: TCP
-    targetPort: 3000
+    targetPort: 5000
   selector:
-    app: hashiconf-1
+    app: reactv2-1
   type: LoadBalancer

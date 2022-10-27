@@ -21,11 +21,11 @@ app.config.from_object(ApplicationConfig)
 
 server_session = Session(app)
 
-# LD_KEY = os.environ.get('LD_SERVER_KEY')
-LD_KEY = 'sdk-9b3486f8-ae4d-4c73-89cc-0ae39e85bb81'
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-AWS_SECRET_KEY = os.getenv('AWS_SECRET_KEY')
-AWS_DEFAULT_REGION = os.getenv('AWS_DEFAULT_REGION')
+LD_KEY = os.environ.get('LD_SERVER_KEY')
+# LD_KEY = 'clear'
+#AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+#AWS_SECRET_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_DEFAULT_REGION = os.environ.get('AWS_DEFAULT_REGION')
 
 status_api = 'v2.3344'
 
