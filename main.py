@@ -22,9 +22,6 @@ app.config.from_object(ApplicationConfig)
 server_session = Session(app)
 
 LD_KEY = os.environ.get('LD_SERVER_KEY')
-# LD_KEY = 'clear'
-#AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-#AWS_SECRET_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_DEFAULT_REGION = os.environ.get('AWS_DEFAULT_REGION')
 
 status_api = 'v2.3344'
@@ -46,8 +43,6 @@ def default_path():
 def app_login():
     request_data = request.get_json()
     session['key'] = request_data['key']
-    # session['device'] = request_data['device']
-    # session['operatingSystem'] = request_data['operatingSystem']
     status = {
         "status": session['key']+" has been logged in"
     }
@@ -110,7 +105,6 @@ def thedata():
             "key": 'debuguser'
         }
     ldclient.get().identify(user)
-    # logstatus = ldclient.get().variation('logMode', user, 'default')
 
     ############################################################################################
     #                                                                                          #
@@ -151,49 +145,8 @@ def thedata():
                 "title":data['Item']['name'],
                 "text":data['Item']['region']
             }
-            # {
-            #     "id":1,
-            #     "title":data['Item']['title2'],
-            #     "text":data['Item']['text2']
-            # },
-            # {
-            #     "id":1,
-            #     "title":data['Item']['title3'],
-            #     "text":data['Item']['text3']
-            # }
         )]
         return jsonify(realData)
-
-# @app.route("/teamdebug")
-# def teamdebug():
-#     if session['key'] != None:
-#         user = {
-#             "key": session['key']
-#         }
-#     else:
-#         user = {
-#             "key": "debuguser"
-#         }
-#     ldclient.get().identify(user)
-#     logstatus = ldclient.get().variation('logMode', user, 'default')
-#     if logstatus == "debug":
-#         teamid = os.environ.get("TEAM_ID")
-#         dynamodb = boto3.resource('dynamodb')
-#         table = dynamodb.Table('GamedayDB')
-#         data = table.get_item(Key={'teamid': str(teamid)})
-#         teamval = {
-#             "teamid": teamid,
-#             "loglevel": logstatus,
-#             "debugcode": data['Item']['debugcode']
-#         }
-#         return jsonify(teamval)
-#     else:
-#         data = {
-#             "loglevel": logstatus,
-#             "message": "Logging is currently in default mode. No debug data available. Have you checked LaunchDarkly?"
-#         }
-#         return jsonify(data)
-   
 
 @app.after_request
 def after_request(response):
