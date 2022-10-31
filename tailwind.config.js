@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       fontFamily: {
         audimat: ["Audimat"],
+        sohne: ["Sohne"],
       },
       colors: {
         aws: '#FF9900',

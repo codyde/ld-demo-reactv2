@@ -5,9 +5,10 @@ import { useFlags } from "launchdarkly-react-client-sdk";
 import Login from "./components/login";
 import ld from "./ld-white-wide.png";
 import Connection from "./components/connection";
+import Spacepicker from "./components/spacepicker";
 
 function App() {
-  const { login, bgstyle, qrcode, apidebug } = useFlags();
+  const { login, bgstyle, qrcode, apidebug, spacepicker } = useFlags();
 
   const [bg, setbg] = React.useState();
 
@@ -66,6 +67,11 @@ function App() {
           <Connection />
         </div>
       ) : null}
+      {spacepicker ? (
+        <div className="mx-auto xl:col-span-2 row-start-3 w-full xl:w-4/5 xl:col-start-2 bg-black-4">
+        <Spacepicker />
+        </div>
+      ):null}
     </div>
   );
 }

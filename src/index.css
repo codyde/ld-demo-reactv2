@@ -7,6 +7,11 @@
   src: url("../public/fonts/Audimat3000-Regulier.otf");
 }
 
+@font-face {
+  font-family: "Sohne";
+  src: url("../public/fonts/Söhne-Kräftig.otf");
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
