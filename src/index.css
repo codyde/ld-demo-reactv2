@@ -4,12 +4,12 @@
 
 @font-face {
   font-family: "Audimat";
-  src: url("../public/fonts/Audimat3000-Regulier.otf");
+  src: url("/fonts/Audimat3000-Regulier.otf");
 }
 
 @font-face {
   font-family: "Sohne";
-  src: url("../public/fonts/Söhne-Kräftig.otf");
+  src: url("/fonts/sohne.otf");
 }
 
 body {
